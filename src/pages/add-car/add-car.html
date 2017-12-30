@@ -12,52 +12,61 @@
   <ion-slides #addCarSlide>
 
     <ion-slide>
+      <ion-row>
+        <ion-col>
+
+          <div text-center>
+            <h1>Which is your car?</h1>
+          </div>
+
+          <form [formGroup]="carSpecForm">
+
+            <div>
+              <ion-item class="selw75" margin-top >
+                <ion-label floating>Make</ion-label>
+                <ion-input formControlName="make" type="text"></ion-input>
+              </ion-item>
+
+              <ion-item class="selw75" margin-top>
+                <ion-label floating>Model</ion-label>
+                <ion-input formControlName="model" type="text"></ion-input>
+              </ion-item>
+
+              <ion-item class="selw75" margin-top>
+                <ion-label floating>Version</ion-label>
+                <ion-input formControlName="version" type="text"></ion-input>
+              </ion-item>
+
+            </div>
+          </form>
+        </ion-col>
+      </ion-row>
+
+
+      <div (click)="next()" *ngIf="canAddImages()">
+        Let's add some images
+      </div>
+
+    </ion-slide>
+
+    <ion-slide>
 
       <div text-center>
-        <h1>Which is your car?</h1>
+        <h1>Add your best photos</h1>
       </div>
 
-      <ion-list no-lines margin-top>
-
-        <ion-item class="selw75">
-          <ion-label>Year</ion-label>
-          <ion-select [(ngModel)]="year" (ngModelChange)="getCarMakesByYear(year)" >
-            <ion-option [value]="yearItem" *ngFor="let yearItem of carYears">{{yearItem}}</ion-option>
-          </ion-select>
-        </ion-item>
-
-        <div *ngIf="carMakes">
-          <ion-item class="selw75" margin-top>
-            <ion-label>Makes</ion-label>
-            <ion-select [(ngModel)]="make" (ngModelChange)="getCarModelsByMake(make)">
-              <ion-option *ngFor="let make of carMakes">{{make}}</ion-option>
-            </ion-select>
-          </ion-item>
-        </div>
-
-        <div *ngIf="carModels">
-          <ion-item class="selw75" margin-top>
-            <ion-label>Model</ion-label>
-            <ion-select [(ngModel)]="model" (ngModelChange)="getCarVersionByModel(model)">
-              <ion-option *ngFor="let model of carModels">{{model}}</ion-option>
-            </ion-select>
-          </ion-item>
-        </div>
-
-        <div *ngIf="carVersions">
-          <ion-item class="selw75" margin-top>
-            <ion-label>Version</ion-label>
-            <ion-select [(ngModel)]="version">
-              <ion-option *ngFor="let version of carVersions">{{version}}</ion-option>
-            </ion-select>
-          </ion-item>
-        </div>
-
-      </ion-list>
-
-      <div text-center margin-top *ngIf="readyToAddImages()">
-        <h2>Let's add some images</h2>
-      </div>
+        <ion-grid>
+          <ion-row>
+            <ion-col [ngStyle]="{'background-image': 'url(' + imagesPath[0] + ')'}" (click)="takePicture(profileImage)" class="big-photo">Frontal</ion-col>
+          </ion-row>
+          <ion-row class="margin-top-5">
+            <ion-col [ngStyle]="{'background-image': 'url(' + imagesPath[1] + ')'}" (click)="takePicture(profileImage)" class="big-photo margin-right-5">Left</ion-col>
+            <ion-col [ngStyle]="{'background-image': 'url(' + imagesPath[2] + ')'}" (click)="takePicture(profileImage)" class="big-photo margin-left-5">Right</ion-col>
+          </ion-row>
+          <ion-row class="margin-top-5">
+            <ion-col [ngStyle]="{'background-image': 'url(' + imagesPath[3] + ')'}" (click)="takePicture(profileImage)" class="big-photo">Back</ion-col>
+          </ion-row>
+        </ion-grid>
 
     </ion-slide>
 
