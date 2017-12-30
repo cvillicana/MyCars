@@ -1,15 +1,16 @@
 page-home {
 
-  // ion-content{
-  //   background-color: color($colors, primary) !important;
-  // }
-  //
-  // h1{
-  //   font-size: 40px;
-  //   color: color($colors, icons-text);
-  // }
+  ion-content{
+    background-color: color($colors, primary) !important;
+  }
+
+  h1{
+    font-size: 40px;
+    color: color($colors, light-primary);
+  }
 
   .circle-button{
+    padding-top: 30px; 
     margin: 0 auto;
     height: 180px;
     width: 180px;

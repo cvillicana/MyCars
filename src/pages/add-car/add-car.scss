@@ -1,0 +1,28 @@
+page-add-car {
+
+  h1{
+    font-size: 20px;
+    color: color($colors, light-primary);
+  }
+
+  ion-content{
+    background-color: color($colors, primary) !important;
+  }
+
+  ion-item.selw75 {
+
+    background-color: color($colors, dark-primary) !important;
+    color: color($colors, text) !important;
+
+    ion-label {
+      min-width: 25%;
+    }
+
+    ion-select {
+      padding-right: 16px;
+      text-align: right;
+      min-width: 75%;
+    }
+  }
+
+}

@@ -1,0 +1,19 @@
+car-options {
+  .header-list{
+    background-color: color($colors, dark-primary) !important;
+    color: color($colors, text);
+    border: 2px solid white;
+    border-radius: 30px;
+  }
+
+  h2{
+    font-size: 20px;
+  }
+
+  .item-option{
+    background-color: transparent;
+    color: color($colors, text);
+  }
+
+
+}

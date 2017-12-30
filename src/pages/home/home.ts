@@ -11,4 +11,8 @@ export class HomePage {
 
   }
 
+  goAddCar(){
+    this.navCtrl.push('AddCarPage');
+  }
+
 }

@@ -1,0 +1,70 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Add car</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+  <ion-slides #addCarSlide>
+
+    <ion-slide>
+
+      <div text-center>
+        <h1>Which is your car?</h1>
+      </div>
+
+      <ion-list no-lines margin-top>
+
+        <ion-item class="selw75">
+          <ion-label>Year</ion-label>
+          <ion-select [(ngModel)]="year" (ngModelChange)="getCarMakesByYear(year)" >
+            <ion-option [value]="yearItem" *ngFor="let yearItem of carYears">{{yearItem}}</ion-option>
+          </ion-select>
+        </ion-item>
+
+        <div *ngIf="carMakes">
+          <ion-item class="selw75" margin-top>
+            <ion-label>Makes</ion-label>
+            <ion-select [(ngModel)]="make" (ngModelChange)="getCarModelsByMake(make)">
+              <ion-option *ngFor="let make of carMakes">{{make}}</ion-option>
+            </ion-select>
+          </ion-item>
+        </div>
+
+        <div *ngIf="carModels">
+          <ion-item class="selw75" margin-top>
+            <ion-label>Model</ion-label>
+            <ion-select [(ngModel)]="model" (ngModelChange)="getCarVersionByModel(model)">
+              <ion-option *ngFor="let model of carModels">{{model}}</ion-option>
+            </ion-select>
+          </ion-item>
+        </div>
+
+        <div *ngIf="carVersions">
+          <ion-item class="selw75" margin-top>
+            <ion-label>Version</ion-label>
+            <ion-select [(ngModel)]="version">
+              <ion-option *ngFor="let version of carVersions">{{version}}</ion-option>
+            </ion-select>
+          </ion-item>
+        </div>
+
+      </ion-list>
+
+      <div text-center margin-top *ngIf="readyToAddImages()">
+        <h2>Let's add some images</h2>
+      </div>
+
+    </ion-slide>
+
+
+  </ion-slides>
+
+
+
+
+</ion-content>
