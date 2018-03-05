@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-
+import { AppConfig } from '../../config/app.config';
 import { CarMake } from '../../models/car.makes.interface';
 
 import 'rxjs/add/operator/map';
@@ -16,35 +16,30 @@ export class CarInfoProvider {
   public carMakes : any;
 
 
-  constructor(public http: HttpClient) {
-    this.getCarInfoUrl = "http://www.carqueryapi.com/api/0.3/?callback=?&cmd="
+  constructor(public http: HttpClient, public appConfig: AppConfig) {
+    this.getCarInfoUrl = appConfig.autoPlaza;
   }
 
 // TODO:
 // add environment variables
 
 
-  getCarMakes(year){
+  getCarMakes(){
     return new Promise((resolve, reject) => {
-      this.http.get("http://www.carqueryapi.com/api/0.3/?callback=?&cmd=getMakes&year="+year+"&sold_in_us=1",
-      {responseType: 'text'})
+      this.http.get('assets/data/makes.json')
       .subscribe(response => {
-        this.jsonData = response.replace(/\?|\(|\)|\;/g, "");
-        this.carMakes = JSON.parse(this.jsonData);
-        resolve(this.carMakes.Makes.map(x => x.make_display));
+        resolve(response);
       }, (err) => {
         reject(err)
       });
     });
   }
 
-  getCarModels(make, year){
+  getCarModels(makeId){
     return new Promise((resolve, reject) => {
-      this.http.get("https://www.carqueryapi.com/api/0.3/?callback=?&cmd=getModels&make="+make+"&year="+year+"&sold_in_us=1",
-      {responseType: 'text'})
+      this.http.get(this.getCarInfoUrl + makeId + "/models")
       .subscribe(response => {
-        this.jsonData = response.replace(/\?|\(|\)|\;/g, "");
-        resolve(JSON.parse(this.jsonData).Models.map(x => x.model_name));
+        resolve(response);
       }, (err) => {
         reject(err)
       });

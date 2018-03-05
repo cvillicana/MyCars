@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { File } from '@ionic-native/file';
 import { FilePath } from '@ionic-native/file-path';
 import { Camera } from '@ionic-native/camera';
+import { ImagePicker } from '@ionic-native/image-picker';
 import { ActionSheetController, Platform, ToastController } from 'ionic-angular';
 import 'rxjs/add/operator/map';
 
@@ -14,7 +15,8 @@ export class ImageProvider {
 
   constructor(public actionSheetCtrl: ActionSheetController,
     public camera: Camera, public platform:Platform, public filePath:FilePath,
-    public file:File, public toastCtrl:ToastController) {}
+    public file:File, public toastCtrl:ToastController,
+    public imagePicker: ImagePicker) {}
 
   private createFileName() {
     var d = new Date(),
@@ -54,6 +56,29 @@ export class ImageProvider {
     } else {
       return cordova.file.dataDirectory + img;
     }
+  }
+
+  public getPictures(pathImages,exactPosition:number,maximumImages:number){
+    var options = {
+      maximumImagesCount: maximumImages
+    };
+    return new Promise((resolve, reject) => {
+      this.imagePicker.getPictures(options).then((results) => {
+        if(exactPosition === -1){
+          for(var i = 0; i<results.length; i++){
+            pathImages.push(results[i]);
+          }
+        }
+        else{
+          for(var ex = exactPosition, idx = 0; idx < maximumImages; ex++, idx++ ){
+            pathImages[ex]=results[idx];
+          }
+        }
+        resolve(pathImages);
+      }, (err) => {
+        reject(err);
+      })
+    })
   }
 
   takePicture(sourceType){
@@ -107,14 +132,11 @@ export class ImageProvider {
           {
             text: "Load from Library",
             handler: () => {
-              this.takePicture(
-                this.camera.PictureSourceType.PHOTOLIBRARY
-              ).then((success) => {
-                var image = this.pathForImage(success);
-                resolve(image);
-              }, (err) => {
-                reject(err);
-              });
+              // this.getPictures().then((success) => {
+              //   resolve(success);
+              // }, (err) => {
+              //   reject(err);
+              // });
             }
           },
           {

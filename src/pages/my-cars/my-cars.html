@@ -1,0 +1,31 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>MyCars</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+  <ion-card (click)="goToCarDetails()">
+
+  <ion-item>
+    <h2>Toyota 2018</h2>
+    <p>Tacoma Trd Sport</p>
+  </ion-item>
+
+  <img src="assets/imgs/tacoma.jpg">
+
+  <ion-row>
+    <ion-col >
+      <ion-item text-center>
+        <div>{{ testCurrency | currency}}</div>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+</ion-card>
+
+</ion-content>

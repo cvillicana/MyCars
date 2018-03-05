@@ -1,46 +1,43 @@
-<ion-header>
-
-  <ion-navbar>
-    <ion-title>Add car</ion-title>
-  </ion-navbar>
-
-</ion-header>
-
-
 <ion-content padding>
 
-  <ion-slides #addCarSlide>
+  <ion-slides #addCarSlide pager>
 
     <ion-slide>
-      <ion-row>
-        <ion-col>
 
-          <div text-center>
-            <h1>Which is your car?</h1>
-          </div>
+      <div text-center class="margin-top-60">
+        <h1>Select your car</h1>
+      </div>
 
-          <form [formGroup]="carSpecForm">
+      <ion-list no-lines margin-top>
 
-            <div>
-              <ion-item class="selw75" margin-top >
-                <ion-label floating>Make</ion-label>
-                <ion-input formControlName="make" type="text"></ion-input>
-              </ion-item>
+       <div *ngIf="carMakes">
+         <ion-item class="selw75" margin-top>
+           <ion-label>Makes</ion-label>
+           <ion-select [(ngModel)]="make" [compareWith]="makeCompare" (ngModelChange)="getCarModelsByMake(make)">
+             <ion-option [value]="make" *ngFor="let make of carMakes.makes">{{make.name}}</ion-option>
+           </ion-select>
+         </ion-item>
+       </div>
 
-              <ion-item class="selw75" margin-top>
-                <ion-label floating>Model</ion-label>
-                <ion-input formControlName="model" type="text"></ion-input>
-              </ion-item>
+       <div *ngIf="carModels">
+         <ion-item class="selw75" margin-top>
+           <ion-label>Model</ion-label>
+           <ion-select [(ngModel)]="model">
+             <ion-option *ngFor="let model of carModels.models">{{model.name}}</ion-option>
+           </ion-select>
+         </ion-item>
+       </div>
 
-              <ion-item class="selw75" margin-top>
-                <ion-label floating>Version</ion-label>
-                <ion-input formControlName="version" type="text"></ion-input>
-              </ion-item>
+       <div *ngIf="model">
+         <ion-item class="selw75" margin-top>
+           <ion-label>Years</ion-label>
+           <ion-select [(ngModel)]="year">
+             <ion-option *ngFor="let year of carYears">{{year}}</ion-option>
+           </ion-select>
+         </ion-item>
+       </div>
 
-            </div>
-          </form>
-        </ion-col>
-      </ion-row>
+     </ion-list>
 
 
       <div (click)="next()" *ngIf="canAddImages()">
@@ -51,29 +48,68 @@
 
     <ion-slide>
 
-      <div text-center>
+      <div text-center class="margin-top-60">
         <h1>Add your best photos</h1>
       </div>
 
-        <ion-grid>
-          <ion-row>
-            <ion-col [ngStyle]="{'background-image': 'url(' + imagesPath[0] + ')'}" (click)="takePicture(profileImage)" class="big-photo">Frontal</ion-col>
-          </ion-row>
-          <ion-row class="margin-top-5">
-            <ion-col [ngStyle]="{'background-image': 'url(' + imagesPath[1] + ')'}" (click)="takePicture(profileImage)" class="big-photo margin-right-5">Left</ion-col>
-            <ion-col [ngStyle]="{'background-image': 'url(' + imagesPath[2] + ')'}" (click)="takePicture(profileImage)" class="big-photo margin-left-5">Right</ion-col>
-          </ion-row>
-          <ion-row class="margin-top-5">
-            <ion-col [ngStyle]="{'background-image': 'url(' + imagesPath[3] + ')'}" (click)="takePicture(profileImage)" class="big-photo">Back</ion-col>
-          </ion-row>
-        </ion-grid>
+      <ion-grid>
+        <ion-row class="margin-top-10">
+          <ion-col [ngStyle]="{'background-image': 'url(' + imagesPath[0] + ')'}" (click)="getPictures(0,1)" class="big-photo"></ion-col>
+        </ion-row>
+        <ion-row class="margin-top-10">
+          <ion-col [ngStyle]="{'background-image': 'url(' + imagesPath[1] + ')'}" (click)="getPictures(1,1)" class="big-photo margin-right-5"></ion-col>
+          <ion-col [ngStyle]="{'background-image': 'url(' + imagesPath[2] + ')'}" (click)="getPictures(2,1)" class="big-photo margin-left-5"></ion-col>
+        </ion-row>
+        <ion-row class="margin-top-10">
+          <ion-col [ngStyle]="{'background-image': 'url(' + imagesPath[3] + ')'}" (click)="getPictures(3,1)" class="big-photo"></ion-col>
+        </ion-row>
+      </ion-grid>
+
+
+      <div text-center *ngIf="canUploadCar()">
+        <h1>Almost done</h1>
+      </div>
+
+    </ion-slide>
+
+    <ion-slide>
+
+      <div text-center class="margin-top-60">
+        <h1>Owner</h1>
+      </div>
+
+      <form [formGroup]="signUpForm" (ngSubmit)="registerUser(signUpForm.value, signUpForm.valid)" *ngIf="!alreadyLoged">
+        <ion-item class="selw75" no-lines margin-top>
+              <ion-label floating>Email</ion-label>
+              <ion-input formControlName="email" type="email"
+              ></ion-input>
+          </ion-item>
+
+          <ion-item class="selw75" *ngIf="signUpForm.controls.email.pending" no-lines>
+              <p>Checking email...</p>
+          </ion-item>
+
+          <ion-item class="selw75"  *ngIf="!signUpForm.controls.email.valid && !signUpForm.controls.email.pending && (signUpForm.controls.email.dirty || submitAttempt)" no-lines>
+              <p class="invalid">Sorry, that email can not be used!</p>
+          </ion-item>
+
+          <ion-item class="selw75" no-lines margin-top>
+              <ion-label floating>Password</ion-label>
+              <ion-input formControlName="password" type="password"
+              ></ion-input>
+          </ion-item>
+
+          <button full ion-button class="continue-button">Register</button>
+      </form>
+
+
+      <div class="margin-top-60" text-center *ngIf="alreadyLoged" (click)="saveCar()">
+        <h1>Save</h1>
+      </div>
 
     </ion-slide>
 
 
   </ion-slides>
-
-
-
 
 </ion-content>

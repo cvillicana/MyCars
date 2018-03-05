@@ -4,8 +4,12 @@
 *~
 *.sw[mnpcod]
 *.log
+*.env
 *.tmp
 *.tmp.*
+# Environment Variables
+**/environment.*
+!**/environment.model.ts
 log.txt
 *.sublime-project
 *.sublime-workspace

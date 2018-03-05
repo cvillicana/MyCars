@@ -1,9 +1,30 @@
 page-add-car {
 
+
+  div.swiper-pagination {
+     top:20px;
+     bottom:inherit;
+  }
+
   .scroll-content {
     display: flex;
     flex-direction: column;
     padding-bottom: 0!important;
+  }
+
+  .swiper-pagination-bullet {
+    width: 19px;
+    height: 19px;
+    background: color($colors, text) !important;
+  }
+
+  .swiper-pagination-bullet-active {
+    background: red;
+    opacity: 1;
+}
+
+  .swiper-container-horizontal > .swiper-pagination-bullets .swiper-pagination-bullet {
+    margin: 0 30px;
   }
 
   .slide-zoom{
@@ -29,8 +50,12 @@ page-add-car {
     margin-right: 5px !important;
   }
 
-  .margin-top-5{
-    margin-top: 5px !important;
+  .margin-top-10{
+    margin-top: 10px !important;
+  }
+
+  .margin-top-60{
+    margin-top: 60px !important;
   }
 
   .big-photo{
@@ -38,6 +63,19 @@ page-add-car {
     height: 130px;
     background-color: color($colors, dark-primary) !important;
   }
+
+  .invalid {
+            color: #ea6153;
+        }
+
+        .continue-button {
+          width: 100%;
+          border-radius: 30px;
+          margin-top: 30px;
+          font-size: 0.9em;
+          background-color: transparent;
+          border: 1px solid #fff;
+      }
 
   ion-item.selw75 {
 
