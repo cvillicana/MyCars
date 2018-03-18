@@ -37,7 +37,9 @@ import { CarProvider } from '../providers/car/car';
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    IonicModule.forRoot(MyApp),
+    IonicModule.forRoot(MyApp,{
+      tabsHideOnSubPages: true
+    }),
     IonicStorageModule.forRoot()
   ],
   bootstrap: [IonicApp],

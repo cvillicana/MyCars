@@ -99,11 +99,7 @@ export class AddCarPage {
   }
 
   public canUploadCar(): boolean{
-    var emptyImage = true;
-    for(var i = 0; i < 4; i ++){
-      emptyImage = !this.imagesPath[i];
-    }
-    return !emptyImage;
+    return true;
   }
 
   public getPictures(exactPosition,maximumImages):void{
@@ -194,9 +190,9 @@ export class AddCarPage {
       make: this.carMake.name,
       model: this.carModel,
       version: this.carVersion,
-      price: this.carPrice.replace(/\$|\s/g, ''),
+      price: this.carPrice ?  this.carPrice.replace(/\$|\s/g, '') : '',
       ownerName: this.userInfo.name,
-      contactPhone: this.contactPhone.replace(/\(|\)|\s|\-/g, '')
+      contactPhone: this.contactPhone ? this.contactPhone.replace(/\(|\)|\s|\-/g, '') : ''
 
     }
 
