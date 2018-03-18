@@ -30,6 +30,18 @@ export class CarProvider {
     })
   }
 
+  public getMyCars(){
+    return new Promise((resolve, reject) => {
+      this.http.get(this.apiURL + "me")
+      .subscribe(res => {
+        var data = res
+        resolve(data);
+      }, (err) => {
+        reject(err);
+      })
+    })
+  }
+
   public uploadImage(imagesPath, carId){
     let t = this;
     return new Promise((resolve, reject) => {

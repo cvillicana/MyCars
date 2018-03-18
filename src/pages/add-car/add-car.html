@@ -1,115 +1,224 @@
-<ion-content padding>
 
-  <ion-slides #addCarSlide pager>
+<ion-header>
 
-    <ion-slide>
+  <ion-navbar>
+    <ion-title>Add a Car</ion-title>
+  </ion-navbar>
 
-      <div text-center class="margin-top-60">
-        <h1>Select your car</h1>
+</ion-header>
+
+
+<ion-content padding style="overflow-y: hidden;">
+
+  <ion-row>
+    <ion-col col-4 text-center >
+      <div class="bullet-pagination pag-inactive" [ngClass]="{'pag-active': currentView === 'car-specifications' }"></div>
+    </ion-col>
+    <ion-col col-4 text-center >
+      <div class="bullet-pagination pag-inactive" [ngClass]="{'pag-active': currentView === 'car-images' }"></div>
+    </ion-col>
+    <ion-col col-4 text-center >
+      <div class="bullet-pagination pag-inactive" [ngClass]="{'pag-active': currentView === 'save-car' }"></div>
+    </ion-col>
+
+    <ion-col text-center padding-top>
+      <h1>{{pageHeader}}</h1>
+      <p *ngIf="subHeader !== ''">{{subHeader}}</p>
+    </ion-col>
+
+  </ion-row>
+
+  <div *ngIf="currentView === 'car-specifications'" (swipe)="swipe($event, 'specifications')">
+
+    <ion-list margin-top>
+
+      <div *ngIf="carMakes">
+        <ion-item class="selw75" no-lines>
+          <ion-label>Make</ion-label>
+          <ion-select [(ngModel)]="carMake" [compareWith]="makeCompare">
+            <ion-option [value]="make" *ngFor="let make of carMakes.makes">{{make.name}}</ion-option>
+          </ion-select>
+        </ion-item>
       </div>
 
-      <ion-list no-lines margin-top>
-
-       <div *ngIf="carMakes">
-         <ion-item class="selw75" margin-top>
-           <ion-label>Makes</ion-label>
-           <ion-select [(ngModel)]="make" [compareWith]="makeCompare" (ngModelChange)="getCarModelsByMake(make)">
-             <ion-option [value]="make" *ngFor="let make of carMakes.makes">{{make.name}}</ion-option>
-           </ion-select>
-         </ion-item>
-       </div>
-
-       <div *ngIf="carModels">
-         <ion-item class="selw75" margin-top>
-           <ion-label>Model</ion-label>
-           <ion-select [(ngModel)]="model">
-             <ion-option *ngFor="let model of carModels.models">{{model.name}}</ion-option>
-           </ion-select>
-         </ion-item>
-       </div>
-
-       <div *ngIf="model">
-         <ion-item class="selw75" margin-top>
-           <ion-label>Years</ion-label>
-           <ion-select [(ngModel)]="year">
-             <ion-option *ngFor="let year of carYears">{{year}}</ion-option>
-           </ion-select>
-         </ion-item>
-       </div>
-
-     </ion-list>
-
-
-      <div (click)="next()" *ngIf="canAddImages()">
-        Let's add some images
+      <div>
+        <ion-item class="selw75" no-lines>
+          <ion-label color="primary-text" stacked>Version</ion-label>
+          <ion-input [(ngModel)]="carVersion" type="text" placeholder="Car Version"></ion-input>
+        </ion-item>
       </div>
 
-    </ion-slide>
-
-    <ion-slide>
-
-      <div text-center class="margin-top-60">
-        <h1>Add your best photos</h1>
+      <div>
+        <ion-item class="selw75" no-lines>
+          <ion-label color="primary-text" stacked>Model</ion-label>
+          <ion-input [(ngModel)]="carModel" type="text" placeholder="Car Model"></ion-input>
+        </ion-item>
       </div>
 
-      <ion-grid>
-        <ion-row class="margin-top-10">
-          <ion-col [ngStyle]="{'background-image': 'url(' + imagesPath[0] + ')'}" (click)="getPictures(0,1)" class="big-photo"></ion-col>
-        </ion-row>
-        <ion-row class="margin-top-10">
-          <ion-col [ngStyle]="{'background-image': 'url(' + imagesPath[1] + ')'}" (click)="getPictures(1,1)" class="big-photo margin-right-5"></ion-col>
-          <ion-col [ngStyle]="{'background-image': 'url(' + imagesPath[2] + ')'}" (click)="getPictures(2,1)" class="big-photo margin-left-5"></ion-col>
-        </ion-row>
-        <ion-row class="margin-top-10">
-          <ion-col [ngStyle]="{'background-image': 'url(' + imagesPath[3] + ')'}" (click)="getPictures(3,1)" class="big-photo"></ion-col>
-        </ion-row>
-      </ion-grid>
-
-
-      <div text-center *ngIf="canUploadCar()">
-        <h1>Almost done</h1>
+      <div>
+        <ion-item class="selw75" no-lines>
+          <ion-label color="primary-text" stacked>Price</ion-label>
+          <ion-input [(ngModel)]="carPrice" type="tel" name="money" placeholder="$ 999999" [brmasker]="{mask:'$ 0', len:8}"></ion-input>
+        </ion-item>
       </div>
+    </ion-list>
 
-    </ion-slide>
+    <ion-row>
+      <ion-col text-center>
+        <button ion-button center color="secondary" [disabled]="!canAddImages()" (click)="setView('car-images')" >
+          LET'S ADD SOME IMAGES
+        </button>
+      </ion-col>
+    </ion-row>
 
-    <ion-slide>
 
-      <div text-center class="margin-top-60">
-        <h1>Owner</h1>
-      </div>
+  </div>
 
-      <form [formGroup]="signUpForm" (ngSubmit)="registerUser(signUpForm.value, signUpForm.valid)" *ngIf="!alreadyLoged">
-        <ion-item class="selw75" no-lines margin-top>
-              <ion-label floating>Email</ion-label>
-              <ion-input formControlName="email" type="email"
-              ></ion-input>
+  <ion-scroll *ngIf="currentView === 'car-images'" scrollY="true" style="width: 100%; height: 100%;">
+
+    <div (swipe)="swipe($event, 'images')">
+
+      <ion-row class="margin-top-10">
+        <ion-col [ngStyle]="{'background-image': 'url(' + imagesPath[0] + ')'}" (click)="getPictures(0,1)" class="big-photo"></ion-col>
+      </ion-row>
+      <ion-row class="margin-top-10">
+        <ion-col [ngStyle]="{'background-image': 'url(' + imagesPath[1] + ')'}" (click)="getPictures(1,1)" class="big-photo"></ion-col>
+      </ion-row>
+      <ion-row class="margin-top-10">
+        <ion-col [ngStyle]="{'background-image': 'url(' + imagesPath[2] + ')'}" (click)="getPictures(2,1)" class="big-photo"></ion-col>
+      </ion-row>
+      <ion-row class="margin-top-10">
+        <ion-col [ngStyle]="{'background-image': 'url(' + imagesPath[3] + ')'}" (click)="getPictures(3,1)" class="big-photo"></ion-col>
+      </ion-row>
+
+      <ion-row *ngIf="canUploadCar()">
+        <ion-col text-center>
+          <button ion-button center color="secondary" (click)="setView('save-car')" >
+            CONTINUE
+          </button>
+        </ion-col>
+      </ion-row>
+
+    </div>
+  </ion-scroll>
+
+  <ion-scroll *ngIf="currentView === 'save-car'" scrollY="true" style="width: 100%; height: 100%;">
+
+    <div  (swipe)="swipe($event, 'save')">
+
+      <div *ngIf="!alreadyLoged">
+        <form [formGroup]="signUpForm" (ngSubmit)="registerUser(signUpForm.value, signUpForm.valid)" *ngIf="!hasUserAccount">
+
+          <ion-item class="selw75" no-lines>
+            <ion-label stacked>First Name</ion-label>
+            <ion-input formControlName="firstName" type="firstName" placeholder="Name"></ion-input>
+          </ion-item>
+
+          <ion-item class="selw75" no-lines>
+            <ion-label stacked>Last Name</ion-label>
+            <ion-input formControlName="lastName" type="lastName" placeholder="Last Name"></ion-input>
+          </ion-item>
+
+          <ion-item class="selw75" no-lines>
+            <ion-label stacked>Email</ion-label>
+            <ion-input formControlName="email" type="email" placeholder="email@email.com"></ion-input>
           </ion-item>
 
           <ion-item class="selw75" *ngIf="signUpForm.controls.email.pending" no-lines>
-              <p>Checking email...</p>
+            <p>Checking email...</p>
           </ion-item>
 
           <ion-item class="selw75"  *ngIf="!signUpForm.controls.email.valid && !signUpForm.controls.email.pending && (signUpForm.controls.email.dirty || submitAttempt)" no-lines>
-              <p class="invalid">Sorry, that email can not be used!</p>
+            <p class="invalid" *ngIf="signUpForm.controls.email.errors.required">Field is required</p>
+            <p class="invalid" *ngIf="signUpForm.controls.email.errors.email && signUpForm.controls.email.value">Sorry, that email can not be used!</p>
           </ion-item>
+
+          <ion-item class="selw75" no-lines>
+            <ion-label stacked>Password</ion-label>
+            <ion-input formControlName="password" type="password" placeholder="*****"></ion-input>
+          </ion-item>
+
+          <ion-item class="selw75" *ngIf="!signUpForm.controls.password.valid && !signUpForm.controls.password.pending && (signUpForm.controls.password.dirty || submitAttempt)" no-lines>
+            <p class="invalid" *ngIf="signUpForm.controls.password.errors.required">Field is required</p>
+            <p class="invalid" *ngIf="signUpForm.controls.password.errors.minlength">Min length</p>
+          </ion-item>
+
+          <button full ion-button >Register</button>
+        </form>
+
+        <form [formGroup]="loginForm" (ngSubmit)="loginUser(loginForm.value, loginForm.valid)" *ngIf="hasUserAccount">
 
           <ion-item class="selw75" no-lines margin-top>
-              <ion-label floating>Password</ion-label>
-              <ion-input formControlName="password" type="password"
-              ></ion-input>
+            <ion-label stacked>Email</ion-label>
+            <ion-input formControlName="email" type="email" placeholder="email@email.com"></ion-input>
           </ion-item>
 
-          <button full ion-button class="continue-button">Register</button>
-      </form>
+          <ion-item class="selw75"  *ngIf="!loginForm.controls.email.valid && !loginForm.controls.email.pending && (loginForm.controls.email.dirty || submitAttempt)" no-lines>
+            <p class="invalid" *ngIf="loginForm.controls.email.errors.required">Field is required</p>
+            <p class="invalid" *ngIf="loginForm.controls.email.errors.email && loginForm.controls.email.value">Sorry, that email can not be used!</p>
+          </ion-item>
 
+          <ion-item class="selw75" no-lines>
+            <ion-label stacked>Password</ion-label>
+            <ion-input formControlName="password" type="password" placeholder="*****"></ion-input>
+          </ion-item>
 
-      <div class="margin-top-60" text-center *ngIf="alreadyLoged" (click)="saveCar()">
-        <h1>Save</h1>
+          <ion-item class="selw75" *ngIf="!loginForm.controls.password.valid && !loginForm.controls.password.pending && (loginForm.controls.password.dirty || submitAttempt)" no-lines>
+            <p class="invalid" *ngIf="loginForm.controls.password.errors.required">Field is required</p>
+            <p class="invalid" *ngIf="loginForm.controls.password.errors.minlength">Min length</p>
+          </ion-item>
+
+          <button full ion-button>Login</button>
+
+        </form>
+
+        <ion-row>
+          <ion-col text-center>
+            <span>OR</span>
+          </ion-col>
+        </ion-row>
+
+        <button (click)="facebookLogin()" color="facebook" full ion-button icon-left>
+          <ion-icon name="logo-facebook">
+          </ion-icon>
+          Login in with Facebook
+        </button>
+
+        <ion-row>
+          <ion-col (click)="hasUserAccount = !hasUserAccount" text-right>
+            <p>{{hasUserAccount ? 'Not a member? Sign up' : 'Login with your email' }}</p>
+          </ion-col>
+        </ion-row>
+
       </div>
 
-    </ion-slide>
+      <div *ngIf="alreadyLoged">
+
+        <ion-item class="selw75" no-lines margin-top>
+          <ion-label stacked>Name</ion-label>
+          <ion-input type="text" [(ngModel)]="userInfo.name"></ion-input>
+        </ion-item>
+
+        <ion-item class="selw75" no-lines margin-top>
+          <ion-label stacked>Contact Phone</ion-label>
+          <ion-input type="tel" [(ngModel)]="contactPhone" placeholder="Phone" [brmasker]="{mask:'(00) 0000-0000', len:14}"></ion-input>
+        </ion-item>
+
+      </div>
+
+      <ion-row padding-top *ngIf="alreadyLoged">
+        <ion-col text-center>
+          <button ion-button center color="secondary" (click)="saveCar()" >
+            Save
+          </button>
+
+        </ion-col>
+      </ion-row>
+
+    </div>
+
+  </ion-scroll>
 
 
-  </ion-slides>
 
 </ion-content>

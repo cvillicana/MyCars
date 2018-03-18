@@ -15,6 +15,7 @@ import { Crop } from '@ionic-native/crop';
 import { File } from '@ionic-native/file';
 import { FileTransfer } from '@ionic-native/file-transfer';
 import { FilePath } from '@ionic-native/file-path';
+import { Facebook } from '@ionic-native/facebook';
 
 
 import { MyApp } from './app.component';
@@ -58,6 +59,7 @@ import { CarProvider } from '../providers/car/car';
     Crop,
     ImagePicker,
     AuthProvider,
+    Facebook,
     AppConfig,
     IonicStorageModule,
     EmailValidator,

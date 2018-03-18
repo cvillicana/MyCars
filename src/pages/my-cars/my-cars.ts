@@ -1,13 +1,9 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
 import { CurrencyPipe } from '@angular/common';
+import { CarProvider } from '../../providers/car/car';
 
-/**
- * Generated class for the MyCarsPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { MyCars } from '../../models/mycars.interface';
 
 @IonicPage()
 @Component({
@@ -16,17 +12,50 @@ import { CurrencyPipe } from '@angular/common';
 })
 export class MyCarsPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  public loading: any;
+  public myCars: Array<any>;
+
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public loadingCtrl: LoadingController,
+    public carService: CarProvider) {
   }
 
   public testCurrency: number = 155599;
 
-  ionViewDidLoad() {
+  ionViewWillEnter() {
     console.log('ionViewDidLoad MyCarsPage');
+    this.getMyCars();
   }
 
-  public goToCarDetails(){
-    this.navCtrl.push('CarDetailsPage');
+  public goToCarDetails(car){
+    this.navCtrl.push('CarDetailsPage', {car: car});
+  }
+
+  public getMyCars(){
+    this.showLoader();
+    this.carService.getMyCars().then((data) => {
+      var result = data as MyCars;
+      if(result.success){
+        this.myCars = result.cars;
+      }
+      this.loading.dismiss();
+    }, (err) => {
+      this.loading.dismiss();
+    })
+
+  }
+
+  public goToAddCar(){
+    this.navCtrl.push('AddCarPage');
+  }
+
+  public showLoader(){
+    this.loading = this.loadingCtrl.create({
+      content: 'getting cars...'
+    });
+    this.loading.present();
   }
 
 }

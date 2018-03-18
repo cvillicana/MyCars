@@ -1,9 +1,4 @@
-<!--
-  Generated template for the CarDetailsPage page.
 
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
 
   <ion-navbar>
@@ -20,45 +15,57 @@
 
 <ion-content padding>
   <ion-row>
-    <ion-col>
-      <h2>Toyota</h2>
-      <h4>Tacoma TRD Sport</h4>
-      <h4>2010</h4>
+    <ion-col no-padding>
+      <ion-item>
+        <ion-input class="car-make" [(ngModel)]="carDetails.make" type="text"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input class="car-version" [(ngModel)]="carDetails.version" type="text"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input class="car-model" [(ngModel)]="carDetails.model" type="text"></ion-input>
+      </ion-item>
 
     </ion-col>
   </ion-row>
 
     <ion-row class="margin-top-10">
-      <img class="big-photo" src="assets/imgs/tacoma.jpg">
+      <!-- <img class="big-photo" src="assets/imgs/tacoma.jpg"> -->
+      <ion-slides no-padding lazyLoading>
+        <ion-slide *ngFor="let picture of carDetails.pictures">
+          <img src="{{picture}}" />
+        </ion-slide>
+    </ion-slides>
     </ion-row>
 
-    <ion-row>
-      <ion-col>
+    <ion-row class="margin-top-10">
+      <ion-col no-padding>
           <ion-item>
             <ion-label floating>Kilometer</ion-label>
-            <ion-input [disabled]="true"  [(ngModel)]="carDetails.kilometer" type="text"></ion-input>
+            <ion-input [(ngModel)]="carDetails.kilometer" type="text"></ion-input>
           </ion-item>
       </ion-col>
-      <ion-col>
+      <ion-col no-padding>
         <ion-item>
           <ion-label floating>Transmission</ion-label>
-          <ion-input [disabled]="true" [(ngModel)]="carDetails.transmission" type="text"></ion-input>
+          <ion-input [(ngModel)]="carDetails.transmission" type="text"></ion-input>
         </ion-item>
       </ion-col>
     </ion-row>
 
     <ion-row>
-      <ion-col>
+      <ion-col no-padding>
         <ion-item>
           <ion-label floating>Gas</ion-label>
-          <ion-input [disabled]="true" [(ngModel)]="carDetails.gas" type="text"></ion-input>
+          <ion-input [(ngModel)]="carDetails.gas" type="text"></ion-input>
         </ion-item>
       </ion-col>
-      <ion-col>
+      <ion-col no-padding>
         <ion-item>
           <ion-label floating>Other</ion-label>
-          <ion-input [disabled]="true" [(ngModel)]="carDetails.other" type="text"></ion-input>
+          <ion-input [(ngModel)]="carDetails.other" type="text"></ion-input>
         </ion-item>
       </ion-col>
     </ion-row>
+
 </ion-content>

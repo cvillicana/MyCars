@@ -60,7 +60,10 @@ export class ImageProvider {
 
   public getPictures(pathImages,exactPosition:number,maximumImages:number){
     var options = {
-      maximumImagesCount: maximumImages
+      maximumImagesCount: maximumImages,
+      quality: 100,
+      width: 800,
+      height: 600
     };
     return new Promise((resolve, reject) => {
       this.imagePicker.getPictures(options).then((results) => {

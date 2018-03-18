@@ -3,11 +3,15 @@ export class CarDetails{
   kilometer:string
   gas:string
   other:string
+  model:string
+  version:string
+  make:string
+  pictures:Array<string>
 
-  constructor(){
-    this.transmission = "Automatic"
-    this.kilometer = "10000"
-    this.gas = "Magna"
-    this.other = "1"
+  constructor(car){
+    this.make = car.make;
+    this.version = car.version;
+    this.model = car.model;
+    this.pictures = car.pictures;
   }
 }

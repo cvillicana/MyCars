@@ -18,9 +18,11 @@ import { CarDetails } from '../../models/car.details';
 export class CarDetailsPage {
 
   public carDetails: CarDetails;
+  public carFromView: any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
-    this.carDetails = new CarDetails();
+    this.carFromView = navParams.get('car');
+    this.carDetails = new CarDetails(this.carFromView);
   }
 
   ionViewDidLoad() {
