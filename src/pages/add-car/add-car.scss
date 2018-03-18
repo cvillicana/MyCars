@@ -1,18 +1,89 @@
 page-add-car {
 
-  h1{
-    font-size: 20px;
-    color: color($colors, light-primary);
+
+  div.swiper-pagination {
+     top:20px;
+     bottom:inherit;
   }
 
-  ion-content{
-    background-color: color($colors, primary) !important;
+  .scroll-content {
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 0 !important;
+  }
+
+  .bullet-pagination {
+    width: 19px;
+    height: 19px;
+    margin: 0 auto;
+    border-radius: 13px;
+  }
+
+  .pag-inactive{
+    background: color($colors, light-primary) !important;
+  }
+
+  .pag-active{
+    background: color($colors, accent) !important;
+  }
+
+
+  .swiper-pagination-bullet-active {
+    background: red;
+    opacity: 1;
+}
+
+  .swiper-container-horizontal > .swiper-pagination-bullets .swiper-pagination-bullet {
+    margin: 0 30px;
+  }
+
+  .slide-zoom{
+    position: absolute;
+    top:0;
+    left:0;
+  }
+
+  h1{
+    font-size: 20px;
+    color: color($colors, primary);
+  }
+
+  .margin-left-5{
+    margin-left: 5px !important;
+  }
+
+  .margin-right-5{
+    margin-right: 5px !important;
+  }
+
+  .margin-top-10{
+    margin-top: 10px !important;
+  }
+
+  .margin-top-60{
+    margin-top: 60px !important;
+  }
+
+  .big-photo{
+    background-size:cover;
+    height: 130px;
+    background-color: color($colors, dark-primary) !important;
+  }
+
+  .invalid {
+    color: #ea6153;
+  }
+
+  .continue-button {
+    width: 100%;
+    border-radius: 30px;
+    margin-top: 30px;
+    font-size: 0.9em;
+    background-color: color($colors, secondary) !important;;
+    border: 1px solid #fff;
   }
 
   ion-item.selw75 {
-
-    background-color: color($colors, dark-primary) !important;
-    color: color($colors, text) !important;
 
     ion-label {
       min-width: 25%;
@@ -24,5 +95,4 @@ page-add-car {
       min-width: 75%;
     }
   }
-
 }

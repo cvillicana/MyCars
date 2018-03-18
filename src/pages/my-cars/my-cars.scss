@@ -1,0 +1,10 @@
+page-my-cars {
+  .car-price{
+    font-weight: bold;
+    color: color($colors, money) !important;
+  }
+
+  .car-images{
+    max-height: 225px;
+  }
+}

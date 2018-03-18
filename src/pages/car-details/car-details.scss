@@ -1,0 +1,36 @@
+page-car-details {
+
+  .car-make{
+    font-size: 20px;
+  }
+
+  .car-version{
+    font-size: 15px;
+  }
+
+  .car-model{
+    font-size: 15px;
+  }
+
+  .scroll-content{
+    background-color: color($colors, primary);
+  }
+
+  h2 {
+    font-weight: bold;
+    color: color($colors, text);
+  }
+  h4 {
+    color: color($colors, text);
+  }
+
+  .big-photo{
+    height: 220px;
+  }
+
+  .margin-top-10{
+    margin-top:10px;
+
+  }
+
+}

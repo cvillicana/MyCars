@@ -1,96 +1,263 @@
-import { Component, OnChanges, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Component, ViewChild } from '@angular/core';
+import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
+import { FormBuilder, Validators } from '@angular/forms';
+import { ImageProvider } from '../../providers/image/image';
+import { AuthProvider } from '../../providers/auth/auth';
 import { CarInfoProvider } from '../../providers/car-info/car-info';
+import { CarProvider } from '../../providers/car/car';
+import { EmailValidator } from '../../validators/email';
 
-import {Observable} from 'rxjs';
-import 'rxjs/add/operator/map';
+import { UserInfo } from '../../models/userinfo.interface';
 
-import { CarMake } from '../../models/car.makes.interface';
 
 @IonicPage()
 @Component({
   selector: 'page-add-car',
-  templateUrl: 'add-car.html',
+  templateUrl: 'add-car.html'
 })
+
 export class AddCarPage {
 
   @ViewChild('addCarSlide') addCarSlider: any;
 
-  public carYears: number[] = [1999];
+  public signUpForm:any;
+  public loginForm:any;
+  public userInfo: UserInfo;
+
+  public loading: any;
+  public submitAttempt: boolean;
+
+  public carSpecForm:any;
+  public imagesPath: Array<string> = [];
+
+  public carYears: Array<number> = [];
   public year: number;
 
   public carMakes: any;
-  public make: string;
+  public carMake: any;
+  public carModel: string;
+  public carVersion: string;
+  public carPrice: string;
+  public contactPhone: string;
 
-  public carModels: any;
-  public model: string;
+  public alreadyLoged: boolean;
+  public hasUserAccount: boolean;
 
-  public carVersions: any;
-  public version: any;
+  public currentView: string;
+  public pageHeader: string;
+  public subHeader: string;
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    public carInfoService: CarInfoProvider
-  )
-  {}
+    public formBuilder: FormBuilder,
+    public imageService: ImageProvider,
+    public carInfoService: CarInfoProvider,
+    public authService: AuthProvider,
+    public loadingCtrl: LoadingController,
+    public emailValidator: EmailValidator,
+    public carService: CarProvider
+  ){
+    this.getCarMakes();
+
+      this.signUpForm = formBuilder.group({
+        firstName:[''],
+        lastName:[''],
+        email: ['', Validators.compose([Validators.maxLength(30), <any>Validators.email, Validators.required]), emailValidator.checkEmail.bind(emailValidator)],
+        password: ['', [Validators.required, Validators.minLength(6)]]
+      });
+
+      this.loginForm = formBuilder.group({
+        email: ['', Validators.compose([Validators.maxLength(30), <any>Validators.email, Validators.required])],
+        password: ['', [Validators.required, Validators.minLength(6)]]
+      });
+
+    for(var year = 2018; year > 1999; year--) this.carYears.push(year);
+    this.currentView = 'car-specifications';
+    this.pageHeader = "DESCRIBE YOUR CAR";
+    this.hasUserAccount = true;
+
+  }
 
   ionViewDidLoad(){
-    this.addCarSlider.lockSwipes(true);
 
-    for(var year = 2000, i=0; year < 2019; year++, i++){
-      this.carYears[i] = year;
-    }
-
-
-  }
-
-  public getCarMakesByYear(year: number){
-    if(!year){
-      this.carMakes = year;
-      this.carModels = year;
-      this.carVersions = year;
-      return;
-    }
-    this.year = year;
-    this.carInfoService.getCarMakes(year).then((res) => {
-      this.carMakes = res;
-      this.carModels = undefined;
-      this.carVersions = undefined;
+    this.authService.checkAuthentication().then((res) => {
+      this.alreadyLoged = true;
+      this.userInfo = res as UserInfo;
+      }, (err) => {
+      this.alreadyLoged = false;
     });
+
   }
 
-  public getCarModelsByMake(make:string){
-    if(!make){
-      this.carModels = make;
-      this.carVersions = make;
-      return;
-    }
-    this.make = make;
-    this.carInfoService.getCarModels(this.make, this.year).then((res) => {
-      this.carModels = res;
-      this.carVersions = undefined;
-    });
-  }
-
-  public getCarVersionByModel(model:string){
-    if(!model){
-      this.carVersions = model;
-      return;
-    }
-    this.model = model;
-    this.carInfoService.getCarVersion(this.model, this.make, this.year).then((res) => {
-      res[0] = res[0] === '' ? 'Regular' : res[0];
-      this.carVersions = res;
-    });
-  }
-
-  public readyToAddImages(): boolean{
-    if(!this.year) return false;
-    if(!this.make) return false;
-    if(!this.model) return false;
-    if(!this.version) return false;
+  public canAddImages(): boolean{
+    if(!this.carMake) return false;
+    if(!this.carModel) return false;
+    if(!this.carVersion) return false;
+    if(!this.carPrice) return false;
     return true;
   }
+
+  public canUploadCar(): boolean{
+    var emptyImage = true;
+    for(var i = 0; i < 4; i ++){
+      emptyImage = !this.imagesPath[i];
+    }
+    return !emptyImage;
+  }
+
+  public getPictures(exactPosition,maximumImages):void{
+    this.imageService.getPictures(this.imagesPath, exactPosition, maximumImages).then((res) => {
+      console.log(this.imagesPath);
+    });
+  }
+
+  public getCarMakes():void{
+    this.carInfoService.getCarMakes().then((res) => {
+      this.carMakes = res;
+    });
+  }
+
+  public setView(view:string):void{
+    if(!view){
+      return;
+    }
+    switch(view){
+      case 'car-specifications':
+          this.pageHeader = "DESCRIBRE YOUR CAR";
+          this.subHeader = "";
+      break;
+      case 'car-images':
+          this.pageHeader = "ADD YOUR BEST PHOTOS";
+          this.subHeader = "Add 4 photos then you can add a thousand more";
+      break;
+      case 'save-car':
+          this.pageHeader = "WHO'S OWNER?";
+          this.subHeader = "";
+      break;
+    }
+    this.currentView = view;
+  }
+
+  private registerUser(model, isValid: boolean){
+    if(!isValid){
+      return;
+    }
+
+    this.submitAttempt = true;
+
+    this.showLoader();
+
+    this.authService.createAccount(model).then((result) => {
+      this.loading.dismiss();
+      this.alreadyLoged = true;
+      this.userInfo = result as UserInfo;
+      }, (err) => {
+        this.loading.dismiss();
+    });
+
+  }
+
+  private facebookLogin(){
+    this.showLoader();
+
+    this.authService.fbLogin().then((result) =>{
+      this.loading.dismiss();
+      this.alreadyLoged = true;
+      this.userInfo = result as UserInfo;
+    }, (err) => {
+      this.loading.dismiss();
+    });
+  }
+
+  private loginUser(model, isValid: boolean){
+    if(!isValid){
+      return;
+    }
+
+    this.submitAttempt = true;
+
+    this.showLoader();
+
+    this.authService.login(model).then((result) => {
+      this.loading.dismiss();
+      this.alreadyLoged = true;
+      this.userInfo = result as UserInfo;
+    }, (err) => {
+      this.loading.dismiss();
+    });
+
+  }
+
+  private saveCar(){
+    var data = {
+      make: this.carMake.name,
+      model: this.carModel,
+      version: this.carVersion,
+      price: this.carPrice.replace(/\$|\s/g, ''),
+      ownerName: this.userInfo.name,
+      contactPhone: this.contactPhone.replace(/\(|\)|\s|\-/g, '')
+
+    }
+
+    this.showLoader();
+
+    this.carService.saveCar(data).then((result)=>{
+      if(this.imagesPath.length > 0){
+        this.carService.uploadImage(this.imagesPath, result).then((res)=> {
+          this.loading.dismiss();
+          this.goToMyCars();
+        }, (err) => {
+          this.loading.dismiss();
+        })
+      }else{
+        this.goToMyCars();
+        this.loading.dismiss();
+      }
+    }, (err) => {
+      this.loading.dismiss();
+    });
+  }
+
+  public makeCompare(a:{ id:string,name:string},b:{ id:string,name:string}){
+    if(a.id === b.id) return true;
+    return false;
+  }
+
+  public showLoader(){
+    this.loading = this.loadingCtrl.create({
+      content: 'Saving car...'
+    });
+    this.loading.present();
+  }
+
+  public goToMyCars(){
+    this.navCtrl.popToRoot();
+  }
+
+  public swipe(event, from){
+    switch(from){
+      case 'specifications':
+        if(event.direction === 2 && this.canAddImages()) {
+          this.setView("car-images");
+        }
+      break;
+      case 'images':
+        if(event.direction === 4) {
+          this.setView("car-specifications");
+        }
+        if(event.direction === 2 && this.canUploadCar()) {
+          this.setView("save-car");
+        }
+      break;
+      case 'save':
+        if(event.direction === 4) {
+          this.setView("car-images");
+        }
+      break;
+    }
+  }
+
+
 
 }

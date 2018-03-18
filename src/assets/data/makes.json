@@ -1,0 +1,189 @@
+{
+  "makes": [
+      {
+          "id": "MLA6039",
+          "name": "Alfa Romeo",
+          "total_items_in_this_category": 408
+      },
+      {
+          "id": "MLA5782",
+          "name": "Audi",
+          "total_items_in_this_category": 3476
+      },
+      {
+          "id": "MLA410981",
+          "name": "BAIC",
+          "total_items_in_this_category": 7
+      },
+      {
+          "id": "MLA5783",
+          "name": "BMW",
+          "total_items_in_this_category": 2350
+      },
+      {
+          "id": "MLA42429",
+          "name": "Chery",
+          "total_items_in_this_category": 1430
+      },
+      {
+          "id": "MLA3185",
+          "name": "Chevrolet",
+          "total_items_in_this_category": 18625
+      },
+      {
+          "id": "MLA4357",
+          "name": "Chrysler",
+          "total_items_in_this_category": 566
+      },
+      {
+          "id": "MLA5680",
+          "name": "Daewoo",
+          "total_items_in_this_category": 124
+      },
+      {
+          "id": "MLA6671",
+          "name": "Dodge",
+          "total_items_in_this_category": 1256
+      },
+      {
+          "id": "MLA97714",
+          "name": "Ferrari",
+          "total_items_in_this_category": 21
+      },
+      {
+          "id": "MLA3174",
+          "name": "Fiat",
+          "total_items_in_this_category": 20527
+      },
+      {
+          "id": "MLA3180",
+          "name": "Ford",
+          "total_items_in_this_category": 18590
+      },
+      {
+          "id": "MLA5791",
+          "name": "Honda",
+          "total_items_in_this_category": 3208
+      },
+      {
+          "id": "MLA8509",
+          "name": "Hummer",
+          "total_items_in_this_category": 10
+      },
+      {
+          "id": "MLA5683",
+          "name": "Hyundai",
+          "total_items_in_this_category": 1457
+      },
+      {
+          "id": "MLA6599",
+          "name": "Isuzu",
+          "total_items_in_this_category": 125
+      },
+      {
+          "id": "MLA6600",
+          "name": "Jeep",
+          "total_items_in_this_category": 2968
+      },
+      {
+          "id": "MLA7079",
+          "name": "Kia",
+          "total_items_in_this_category": 1430
+      },
+      {
+          "id": "MLA8125",
+          "name": "Land Rover",
+          "total_items_in_this_category": 259
+      },
+      {
+          "id": "MLA5681",
+          "name": "Mazda",
+          "total_items_in_this_category": 102
+      },
+      {
+          "id": "MLA6038",
+          "name": "Mercedes Benz",
+          "total_items_in_this_category": 3160
+      },
+      {
+          "id": "MLA8480",
+          "name": "Mini",
+          "total_items_in_this_category": 428
+      },
+      {
+          "id": "MLA5743",
+          "name": "Mitsubishi",
+          "total_items_in_this_category": 718
+      },
+      {
+          "id": "MLA6173",
+          "name": "Nissan",
+          "total_items_in_this_category": 1704
+      },
+      {
+          "id": "MLA4100",
+          "name": "Peugeot",
+          "total_items_in_this_category": 19282
+      },
+      {
+          "id": "MLA8503",
+          "name": "Porsche",
+          "total_items_in_this_category": 161
+      },
+      {
+          "id": "MLA99993",
+          "name": "Ram",
+          "total_items_in_this_category": 538
+      },
+      {
+          "id": "MLA3205",
+          "name": "Renault",
+          "total_items_in_this_category": 21588
+      },
+      {
+          "id": "MLA6041",
+          "name": "Rover",
+          "total_items_in_this_category": 179
+      },
+      {
+          "id": "MLA6109",
+          "name": "Seat",
+          "total_items_in_this_category": 230
+      },
+      {
+          "id": "MLA106929",
+          "name": "Smart",
+          "total_items_in_this_category": 129
+      },
+      {
+          "id": "MLA7078",
+          "name": "Subaru",
+          "total_items_in_this_category": 217
+      },
+      {
+          "id": "MLA6583",
+          "name": "Suzuki",
+          "total_items_in_this_category": 1351
+      },
+      {
+          "id": "MLA5753",
+          "name": "Toyota",
+          "total_items_in_this_category": 6082
+      },
+      {
+          "id": "MLA3196",
+          "name": "Volkswagen",
+          "total_items_in_this_category": 31062
+      },
+      {
+          "id": "MLA7080",
+          "name": "Volvo",
+          "total_items_in_this_category": 213
+      },
+      {
+          "id": "MLA1939",
+          "name": "Otras Marcas",
+          "total_items_in_this_category": 228
+      }
+  ]
+}

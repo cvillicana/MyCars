@@ -1,0 +1,37 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>MyCars</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+  <ion-card (click)="goToCarDetails(car)" *ngFor="let car of myCars">
+
+  <ion-item>
+    <h2>{{car.make}}</h2>
+    <p>{{car.version}}</p>
+  </ion-item>
+
+  <img class="car-images" src="{{car.pictures[0] || 'assets/imgs/tacoma.jpg'}}">
+
+  <ion-row>
+    <ion-col >
+      <ion-item text-center>
+        <div class="car-price">{{ car.price | currency}}</div>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+</ion-card>
+
+  <ion-fab bottom right>
+     <button ion-fab color="secondary" (click)="goToAddCar()">
+        <ion-icon name="add"></ion-icon>
+     </button>
+   </ion-fab>
+
+</ion-content>
