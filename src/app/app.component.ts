@@ -25,5 +25,24 @@ export class MyApp {
         splashScreen.hide();
       });
     });
+
+    platform.resume.subscribe(() => {
+      handleBranch();
+    });
+
+    // Branch initialization
+    const handleBranch = () => {
+      // only on devices
+      if (!platform.is('cordova')) { return }
+      const Branch = window['Branch'];
+      Branch.initSession(data => {
+        if (data['+clicked_branch_link']) {
+          // read deep link data on click
+          alert('Deep Link Data: ' + JSON.stringify(data));
+        }
+      });
+    }
+
   }
+
 }

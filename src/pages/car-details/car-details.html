@@ -4,7 +4,7 @@
   <ion-navbar>
     <ion-title>Car Details</ion-title>
     <ion-buttons end>
-      <button ion-button>
+      <button ion-button (click)="pictureOptions()">
         <ion-icon name="options"></ion-icon>
       </button>
     </ion-buttons>
@@ -13,42 +13,57 @@
 </ion-header>
 
 
-<ion-content padding>
-  <ion-row>
-    <ion-col no-padding>
-      <ion-item>
-        <ion-input class="car-make" [(ngModel)]="carDetails.make" type="text"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-input class="car-version" [(ngModel)]="carDetails.version" type="text"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-input class="car-model" [(ngModel)]="carDetails.model" type="text"></ion-input>
-      </ion-item>
+<ion-content padding class="overflow-y-hidden">
 
-    </ion-col>
-  </ion-row>
+  <ion-scroll style="height:100%" scrollY="true">
 
-    <ion-row class="margin-top-10">
-      <!-- <img class="big-photo" src="assets/imgs/tacoma.jpg"> -->
-      <ion-slides no-padding lazyLoading>
+
+    <ion-row margin-top *ngIf="!isKeyboardOpen()" [@myAnimation]>
+
+      <ion-col (click)="goToPictures()" class="big-photo" *ngIf="carDetails.pictures.length === 0">
+        Add Some Images Click Here
+      </ion-col>
+
+      <ion-slides no-padding lazyLoading *ngIf="carDetails.pictures.length > 0">
         <ion-slide *ngFor="let picture of carDetails.pictures">
-          <img src="{{picture}}" />
+          <img src="{{picture}}" #myImage (click)="presentImage(myImage)" />
         </ion-slide>
-    </ion-slides>
+      </ion-slides>
+
     </ion-row>
 
-    <ion-row class="margin-top-10">
+    <ion-row>
       <ion-col no-padding>
-          <ion-item>
-            <ion-label floating>Kilometer</ion-label>
-            <ion-input [(ngModel)]="carDetails.kilometer" type="text"></ion-input>
-          </ion-item>
+        <ion-item class="selw75" no-lines>
+          <ion-label color="primary-text" stacked>Make</ion-label>
+          <ion-input [(ngModel)]="carDetails.make" type="text"
+          debounce="1500" (onDebounce)="onChangeTime(carDetails.make, 'make')"
+          ></ion-input>
+        </ion-item>
+        <ion-item class="selw75" no-lines>
+          <ion-label color="primary-text" stacked>Version</ion-label>
+          <ion-input [(ngModel)]="carDetails.version" type="text" debounce="1500" (onDebounce)="onChangeTime(carDetails.version, 'version')"></ion-input>
+        </ion-item>
+        <ion-item class="selw75" no-lines>
+          <ion-label color="primary-text" stacked>Model</ion-label>
+          <ion-input [(ngModel)]="carDetails.model" type="text" debounce="1500" (onDebounce)="onChangeTime(carDetails.model, 'model')"></ion-input>
+        </ion-item>
+
+      </ion-col>
+    </ion-row>
+
+
+    <ion-row>
+      <ion-col no-padding>
+        <ion-item>
+          <ion-label floating>Kilometer</ion-label>
+          <ion-input [(ngModel)]="carDetails.kilometer" type="text" debounce="1500" (onDebounce)="onChangeTime(carDetails.kilometer, 'kilometer')"></ion-input>
+        </ion-item>
       </ion-col>
       <ion-col no-padding>
         <ion-item>
           <ion-label floating>Transmission</ion-label>
-          <ion-input [(ngModel)]="carDetails.transmission" type="text"></ion-input>
+          <ion-input [(ngModel)]="carDetails.transmission" type="text" debounce="1500" (onDebounce)="onChangeTime(carDetails.transmission, 'transmission')"></ion-input>
         </ion-item>
       </ion-col>
     </ion-row>
@@ -57,15 +72,18 @@
       <ion-col no-padding>
         <ion-item>
           <ion-label floating>Gas</ion-label>
-          <ion-input [(ngModel)]="carDetails.gas" type="text"></ion-input>
+          <ion-input [(ngModel)]="carDetails.gas" type="text" debounce="1500" (onDebounce)="onChangeTime(carDetails.gas, 'gas')"></ion-input>
         </ion-item>
       </ion-col>
       <ion-col no-padding>
         <ion-item>
           <ion-label floating>Other</ion-label>
-          <ion-input [(ngModel)]="carDetails.other" type="text"></ion-input>
+          <ion-input [(ngModel)]="carDetails.other" type="text" debounce="1500" (onDebounce)="onChangeTime(carDetails.other, 'other')"></ion-input>
         </ion-item>
       </ion-col>
     </ion-row>
+
+  </ion-scroll>
+
 
 </ion-content>

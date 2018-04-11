@@ -15,9 +15,7 @@ import { IonicPage, NavController } from 'ionic-angular';
 })
 export class TabsPage {
 
-  newsRoot = 'NewsPage'
   myCarsRoot = 'MyCarsPage'
-
 
   constructor(public navCtrl: NavController) {}
 

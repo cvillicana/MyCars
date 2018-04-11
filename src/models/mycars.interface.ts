@@ -5,6 +5,10 @@ export interface MyCars{
     model:string,
     version: boolean,
     price: string,
-    pictures:Array<string>
+    pictures:Array<string>,
+    kilometer: string,
+    transmission: string,
+    other: string,
+    gas: string
   }>
 }

@@ -47,8 +47,24 @@ export class MyCarsPage {
 
   }
 
+  public doRefresh(refresher) {
+    this.carService.getMyCars().then((data) => {
+      var result = data as MyCars;
+      if(result.success){
+        this.myCars = result.cars;
+      }
+      refresher.complete();
+    }, (err) => {
+      refresher.complete();
+    })
+  }
+
   public goToAddCar(){
     this.navCtrl.push('AddCarPage');
+  }
+
+  public goToProfile(){
+    this.navCtrl.push('ProfilePage');
   }
 
   public showLoader(){

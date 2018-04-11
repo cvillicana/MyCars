@@ -42,6 +42,30 @@ export class CarProvider {
     })
   }
 
+  public removePicture(id, pictures){
+    return new Promise((resolve, reject) => {
+      this.http.put(this.apiURL + id + "/images", {pictures: pictures})
+      .subscribe(res => {
+        var data = res;
+        resolve(data);
+      }, (err) => {
+        reject(err);
+      })
+    })
+  }
+
+  public updateCar(id, data){
+    return new Promise((resolve, reject) => {
+      this.http.put(this.apiURL + id + "/", data)
+      .subscribe(res => {
+        var data = res;
+        resolve(data);
+      }, (err) => {
+        reject(err);
+      })
+    })
+  }
+
   public uploadImage(imagesPath, carId){
     let t = this;
     return new Promise((resolve, reject) => {
@@ -55,9 +79,15 @@ export class CarProvider {
         headers: {'Authorization': token }
       };
 
-      const fileTransfer: FileTransferObject = this.transfer.create();
 
       for(var i=0; i<imagesPath.length; i++){
+        const fileTransfer: FileTransferObject = this.transfer.create();
+
+        fileTransfer.onProgress((e) => {
+          let prg = (e.lengthComputable) ? Math.round(e.loaded / e.total * 100) : -1;
+          console.log("progress: " + prg)
+        });
+
         fileTransfer.upload(imagesPath[i], this.apiURL + "images", options).then((data) => {
           resolve(data);
         },(err) => {

@@ -1,0 +1,28 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Pictures</ion-title>
+    <ion-buttons end>
+      <button ion-button (click)="pictureOptions()">
+        <ion-icon name="photos"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding class="overflow-y-hidden">
+
+  <ion-scroll scrollY="true" style="width: 100%; height: 100%;">
+
+    <div class="images">
+      <div class="one-image" *ngFor="let picture of carPictures let idx = index">
+        <button *ngIf="canRemovePictures" (click)="removePicture(idx)" color="danger" class="float-button" ion-fab><ion-icon name="trash"></ion-icon></button>
+        <img src="{{picture}}">
+      </div>
+    </div>
+
+  </ion-scroll>
+
+</ion-content>

@@ -8,8 +8,8 @@ export class AppConfig {
   public autoPlaza: string;
 
   constructor() {
-    this.apiBaseUrl = 'http://my-car-share.herokuapp.com/api/v1/';
-     // this.apiBaseUrl = 'http://192.168.1.64:8080/api/v1/';
+    this.apiBaseUrl = 'http://54.144.106.244/api/v1/';
+    // this.apiBaseUrl = 'http://192.168.1.65:8080/api/v1/';
     this.autoPlaza = 'http://guia.autoplaza.com.mx/async/';
 
     console.debug('AppConfig', this);

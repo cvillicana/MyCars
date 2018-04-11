@@ -1,19 +1,9 @@
 page-car-details {
 
-  .car-make{
-    font-size: 20px;
-  }
-
-  .car-version{
-    font-size: 15px;
-  }
-
-  .car-model{
-    font-size: 15px;
-  }
-
-  .scroll-content{
-    background-color: color($colors, primary);
+  .scroll-content {
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 0 !important;
   }
 
   h2 {
@@ -25,12 +15,28 @@ page-car-details {
   }
 
   .big-photo{
-    height: 220px;
+    height: 180px;
   }
 
-  .margin-top-10{
-    margin-top:10px;
+  .overflow-y-hidden{
+    overflow-y: hidden;
+  }
 
+  ion-item.selw75 {
+
+    ion-label {
+      min-width: 25%;
+    }
+
+    ion-select {
+      padding-right: 16px;
+      text-align: right;
+      min-width: 75%;
+    }
+  }
+
+  .swiper-slide img{
+    max-height: 250px !important;
   }
 
 }
