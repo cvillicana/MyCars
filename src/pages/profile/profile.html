@@ -1,0 +1,115 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Profile</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+  <div>
+
+    <div *ngIf="!alreadyLoged">
+      <form [formGroup]="signUpForm" (ngSubmit)="registerUser(signUpForm.value, signUpForm.valid)" *ngIf="!hasUserAccount">
+
+        <ion-item class="selw75" no-lines>
+          <ion-label stacked>First Name</ion-label>
+          <ion-input formControlName="firstName" type="firstName" placeholder="Name"></ion-input>
+        </ion-item>
+
+        <ion-item class="selw75" no-lines>
+          <ion-label stacked>Last Name</ion-label>
+          <ion-input formControlName="lastName" type="lastName" placeholder="Last Name"></ion-input>
+        </ion-item>
+
+        <ion-item class="selw75" no-lines>
+          <ion-label stacked>Email</ion-label>
+          <ion-input formControlName="email" type="email" placeholder="email@email.com"></ion-input>
+        </ion-item>
+
+        <ion-item class="selw75" *ngIf="signUpForm.controls.email.pending" no-lines>
+          <p>Checking email...</p>
+        </ion-item>
+
+        <ion-item class="selw75"  *ngIf="!signUpForm.controls.email.valid && !signUpForm.controls.email.pending && (signUpForm.controls.email.dirty || submitAttempt)" no-lines>
+          <p class="invalid" *ngIf="signUpForm.controls.email.errors.required">Field is required</p>
+          <p class="invalid" *ngIf="signUpForm.controls.email.errors.email && signUpForm.controls.email.value">Sorry, that email can not be used!</p>
+        </ion-item>
+
+        <ion-item class="selw75" no-lines>
+          <ion-label stacked>Password</ion-label>
+          <ion-input formControlName="password" type="password" placeholder="*****"></ion-input>
+        </ion-item>
+
+        <ion-item class="selw75" *ngIf="!signUpForm.controls.password.valid && !signUpForm.controls.password.pending && (signUpForm.controls.password.dirty || submitAttempt)" no-lines>
+          <p class="invalid" *ngIf="signUpForm.controls.password.errors.required">Field is required</p>
+          <p class="invalid" *ngIf="signUpForm.controls.password.errors.minlength">Min length</p>
+        </ion-item>
+
+        <button full ion-button >Register</button>
+      </form>
+
+      <form [formGroup]="loginForm" (ngSubmit)="loginUser(loginForm.value, loginForm.valid)" *ngIf="hasUserAccount">
+
+        <ion-item class="selw75" no-lines margin-top>
+          <ion-label stacked>Email</ion-label>
+          <ion-input formControlName="email" type="email" placeholder="email@email.com"></ion-input>
+        </ion-item>
+
+        <ion-item class="selw75"  *ngIf="!loginForm.controls.email.valid && !loginForm.controls.email.pending && (loginForm.controls.email.dirty || submitAttempt)" no-lines>
+          <p class="invalid" *ngIf="loginForm.controls.email.errors.required">Field is required</p>
+          <p class="invalid" *ngIf="loginForm.controls.email.errors.email && loginForm.controls.email.value">Sorry, that email can not be used!</p>
+        </ion-item>
+
+        <ion-item class="selw75" no-lines>
+          <ion-label stacked>Password</ion-label>
+          <ion-input formControlName="password" type="password" placeholder="*****"></ion-input>
+        </ion-item>
+
+        <ion-item class="selw75" *ngIf="!loginForm.controls.password.valid && !loginForm.controls.password.pending && (loginForm.controls.password.dirty || submitAttempt)" no-lines>
+          <p class="invalid" *ngIf="loginForm.controls.password.errors.required">Field is required</p>
+          <p class="invalid" *ngIf="loginForm.controls.password.errors.minlength">Min length</p>
+        </ion-item>
+
+        <button full ion-button>Login</button>
+
+      </form>
+
+      <ion-row>
+        <ion-col text-center>
+          <span>OR</span>
+        </ion-col>
+      </ion-row>
+
+      <button (click)="facebookLogin()" color="facebook" full ion-button icon-left>
+        <ion-icon name="logo-facebook">
+        </ion-icon>
+        Login in with Facebook
+      </button>
+
+      <ion-row>
+        <ion-col (click)="hasUserAccount = !hasUserAccount" text-right>
+          <p>{{hasUserAccount ? 'Not a member? Sign up' : 'Login with your email' }}</p>
+        </ion-col>
+      </ion-row>
+
+    </div>
+
+    <div *ngIf="alreadyLoged">
+
+      <div text-center>
+        <img [src]="userInfo.picture"  class="profile-image"/>  
+      </div>
+
+      <ion-item class="selw75" no-lines margin-top>
+        <ion-label stacked>Name</ion-label>
+        <ion-input type="text" [(ngModel)]="userInfo.name"></ion-input>
+      </ion-item>
+
+    </div>
+
+  </div>
+
+</ion-content>

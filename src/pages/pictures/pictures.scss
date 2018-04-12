@@ -1,0 +1,40 @@
+page-pictures {
+  .image-container {
+          min-height: 250px;
+          background-size: cover;
+      }
+
+      @media (min-width: 0px) {
+          .images {
+              column-count: 2;
+          }
+      }
+
+      @media (min-width: 420px) {
+          .images {
+              column-count: 3;
+          }
+      }
+
+      @media (min-width: 720px) {
+          .images {
+              column-count: 4;
+          }
+      }
+
+      .one-image {
+          position: relative;
+          margin: 2px;
+      }
+  .float-button{
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    right: -5px;
+  }
+
+  .float-button  ion-icon {
+    font-size: 1.5rem;
+  }
+
+}

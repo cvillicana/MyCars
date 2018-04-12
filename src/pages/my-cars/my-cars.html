@@ -2,12 +2,21 @@
 
   <ion-navbar>
     <ion-title>MyCars</ion-title>
+    <ion-buttons end>
+      <button ion-button (click)="goToProfile()">
+        <ion-icon name="person"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
+
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
 
   <ion-card (click)="goToCarDetails(car)" *ngFor="let car of myCars">
 
