@@ -28,6 +28,7 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { InterceptorsAuthProvider } from '../providers/interceptors-auth/interceptors-auth';
 import { CarProvider } from '../providers/car/car';
 import { IonicImageViewerModule } from 'ionic-img-viewer';
+import { BranchIoProvider } from '../providers/branch-io/branch-io';
 
 
 @NgModule({
@@ -68,7 +69,8 @@ import { IonicImageViewerModule } from 'ionic-img-viewer';
     AppConfig,
     IonicStorageModule,
     EmailValidator,
-    CarProvider
+    CarProvider,
+    BranchIoProvider
   ]
 })
 export class AppModule {}
