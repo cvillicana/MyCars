@@ -4,6 +4,7 @@ import { trigger, state, style, animate, transition } from '@angular/animations'
 import { CarDetails } from '../../models/car.details';
 import { ImageViewerController } from 'ionic-img-viewer';
 import { CarProvider } from '../../providers/car/car';
+import { BranchIoProvider } from '../../providers/branch-io/branch-io';
 
 import { DebounceInputDirectiveModule } from '../../directives/debounce-input/debounce-input.module';
 
@@ -31,6 +32,7 @@ export class CarDetailsPage {
   public carFromView: any;
 
   constructor(
+    public branchIOService: BranchIoProvider,
     public carService: CarProvider,
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -67,6 +69,14 @@ export class CarDetailsPage {
 
   }
 
+  public createDeepLink(){
+    this.branchIOService.createDeepLink().then((res) => {
+
+    }, (err) => {
+
+    });
+  }
+
   public pictureOptions(){
     let actionSheet = this.actionSheetCtrl.create({
       title: 'Actions',
@@ -75,6 +85,12 @@ export class CarDetailsPage {
           text: 'Add more pictures',
           handler: () => {
             this.goToPictures();
+          }
+        },
+        {
+          text: 'Share',
+          handler: () => {
+            this.createDeepLink();
           }
         },
         {

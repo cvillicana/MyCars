@@ -6,7 +6,7 @@ import { TabsPage } from '../pages/tabs/tabs';
 import { AuthProvider } from '../providers/auth/auth';
 import { BranchIoProvider } from '../providers/branch-io/branch-io';
 
-
+declare var Branch;
 
 @Component({
   templateUrl: 'app.html'
@@ -18,12 +18,11 @@ export class MyApp {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
+      statusBar.styleDefault();
+      splashScreen.hide();
+      handleBranch();
       authService.checkAuthentication().then((res) => {
-        statusBar.styleDefault();
-        splashScreen.hide();
       }, (err) => {
-        statusBar.styleDefault();
-        splashScreen.hide();
       });
     });
 
