@@ -42,6 +42,18 @@ export class CarProvider {
     })
   }
 
+  public getCarByShareId(id){
+    return new Promise((resolve, reject) => {
+      this.http.get(this.apiURL + "share/" + id)
+      .subscribe(res => {
+        var data = res
+        resolve(data);
+      }, (err) => {
+        reject(err);
+      });
+    });
+  }
+
   public removePicture(id, pictures){
     return new Promise((resolve, reject) => {
       this.http.put(this.apiURL + id + "/images", {pictures: pictures})

@@ -1,8 +1,7 @@
 import { NgModule } from '@angular/core';
-import { DebounceInputDirective } from './debounce-input/debounce-input';
 @NgModule({
-	declarations: [DebounceInputDirective],
+	declarations: [],
 	imports: [],
-	exports: [DebounceInputDirective]
+	exports: []
 })
 export class DirectivesModule {}

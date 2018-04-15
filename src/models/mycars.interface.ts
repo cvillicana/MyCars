@@ -9,6 +9,9 @@ export interface MyCars{
     kilometer: string,
     transmission: string,
     other: string,
-    gas: string
+    gas: string,
+    _user: {
+      picture: string
+    }
   }>
 }

@@ -43,7 +43,7 @@ export class MyCarsPage {
       this.loading.dismiss();
     }, (err) => {
       this.loading.dismiss();
-    })
+    });
 
   }
 

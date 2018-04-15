@@ -1,17 +1,36 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { NavController, App } from 'ionic-angular';
 
-/*
-  Generated class for the BranchIoProvider provider.
-
-  See https://angular.io/guide/dependency-injection for more info on providers
-  and Angular DI.
-*/
 @Injectable()
 export class BranchIoProvider {
 
-  constructor(public http: HttpClient) {
-    console.log('Hello BranchIoProvider Provider');
+  constructor(protected app:App) {
   }
+
+
+  public handleLinkData(linkData:any){
+    if(!linkData){
+      return;
+    }
+
+    if(linkData.view == "CarSharedPage" && linkData.shareId){
+      this.goToView(linkData)
+    }
+
+  }
+
+  public goToView(data){
+    if(!data){
+      return;
+    }
+
+    this.navCtrl.push(data.view, { shareId: data.shareId });
+
+  }
+
+  get navCtrl(): NavController {
+    return this.app.getRootNav();
+  }
+
 
 }
