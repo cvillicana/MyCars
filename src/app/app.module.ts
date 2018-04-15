@@ -19,7 +19,7 @@ import { Facebook } from '@ionic-native/facebook';
 
 
 import { MyApp } from './app.component';
-import { TabsPage } from '../pages/tabs/tabs';
+import { TabsPageModule } from '../pages/tabs/tabs.module';
 import { CarInfoProvider } from '../providers/car-info/car-info';
 import { ImageProvider } from '../providers/image/image';
 import { AuthProvider } from '../providers/auth/auth';
@@ -34,7 +34,6 @@ import { BranchIoProvider } from '../providers/branch-io/branch-io';
 @NgModule({
   declarations: [
     MyApp,
-    TabsPage
   ],
   imports: [
     BrowserModule,
@@ -44,12 +43,12 @@ import { BranchIoProvider } from '../providers/branch-io/branch-io';
     IonicModule.forRoot(MyApp,{
       tabsHideOnSubPages: true
     }),
-    IonicStorageModule.forRoot()
+    IonicStorageModule.forRoot(),
+    TabsPageModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    TabsPage
   ],
   providers: [
     StatusBar,
