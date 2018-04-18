@@ -3,7 +3,7 @@
     <name>Car Share</name>
     <description>An awesome Car Share</description>
     <author email="tarascoapps@gmail.com" href="http://ionicframework.com/">TarascoApps Team</author>
-    <content original-src="index.html" src="http://192.168.1.73:8100" />
+    <content src="index.html" />
     <access origin="*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
@@ -93,6 +93,8 @@
     <allow-navigation href="http://10.16.1.167:8100" />
     <allow-navigation href="http://192.168.1.80:8100" />
     <allow-navigation href="http://192.168.1.73:8100" />
+    <allow-navigation href="http://10.16.1.168:8100" />
+    <allow-navigation href="http://192.168.1.67:8100" />
     <engine name="android" spec="^6.4.0" />
     <plugin name="branch-cordova-sdk" spec="^2.6.0" />
     <plugin name="com.synconset.imagepicker" spec="~2.1.8">

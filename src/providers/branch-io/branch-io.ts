@@ -9,16 +9,20 @@ export class BranchIoProvider {
   constructor(protected app:App) {
   }
 
-  private createContentReference(){
+  private createContentReference(data: any){
 
     return new Promise((resolve, reject) => {
 
       var properties = {
-        canonicalIdentifier: 'content/123',
-        title: 'Content 123 Title',
-        contentDescription: 'Content 123 Description ' + Date.now(),
-        contentImageUrl: 'http://lorempixel.com/400/400/',
+        canonicalIdentifier: data.shareId,
+        title: data.carDescription,
+        contentDescription: data.carDescription + " " + Date.now(),
+        contentImageUrl: data.imageUrl,
         contentIndexingMode: 'private',
+        contentMetadata: {
+          view: data.view,
+          shareId: data.shareId
+        }
       }
 
       var branchUniversalObj = null;
@@ -33,33 +37,45 @@ export class BranchIoProvider {
 
   }
 
-  public createDeepLink(){
+  public createDeepLink(linkProperties: any){
     return new Promise((resolve, reject) => {
 
       if(Branch)  reject();
 
-      this.createContentReference().then((res) => {
+      this.createContentReference(linkProperties).then((res) => {
 
         var branchUniversalObj = res as any;
 
         // optional fields
         var analytics = {
-          channel: 'facebook',
           alias: ""
         }
 
         // optional fields
         var properties = {
-          $match_duration: 2000,
-          shareId: "",
-          view: ""
+          $match_duration: 2000
         }
 
-        branchUniversalObj.generateShortUrl(analytics, properties).then(function(res){
-          resolve(res);
-        }, (err) => {
-          reject(err);
-        });
+        var message = 'Check out this link'
+
+        // optional listeners (must be called before showShareSheet)
+        branchUniversalObj.onShareSheetLaunched(function (res) {
+          // android only
+          console.log(res)
+        })
+        branchUniversalObj.onShareSheetDismissed(function (res) {
+          console.log(res)
+        })
+        branchUniversalObj.onLinkShareResponse(function (res) {
+          console.log(res)
+        })
+        branchUniversalObj.onChannelSelected(function (res) {
+          // android only
+          console.log(res)
+        })
+
+        // share sheet
+        branchUniversalObj.showShareSheet(analytics, properties, message);
 
       }, (err) => {
         reject(err)
@@ -76,7 +92,7 @@ export class BranchIoProvider {
       return;
     }
 
-    if(linkData.view == "CarSharedPage" && linkData.shareId){
+    if(linkData.view === "CarSharedPage" && linkData.shareId){
       this.goToView(linkData)
     }
 

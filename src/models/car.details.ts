@@ -1,5 +1,6 @@
 export class CarDetails{
   id:string
+  shareId: string
   transmission:string
   kilometer:string
   gas:string
@@ -7,10 +8,12 @@ export class CarDetails{
   model:string
   version:string
   make:string
+  price:string
   pictures:Array<string>
 
   constructor(car){
     this.id = car._id;
+    this.shareId = car.shareId;
     this.make = car.make;
     this.version = car.version;
     this.model = car.model;
@@ -18,6 +21,7 @@ export class CarDetails{
     this.kilometer = car.kilometer;
     this.transmission = car.transmission;
     this.gas = car.gas;
+    this.price = car.price;
     this.other = car.other;
   }
 }

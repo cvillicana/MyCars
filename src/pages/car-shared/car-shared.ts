@@ -1,12 +1,9 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController} from 'ionic-angular';
+import { CarProvider } from '../../providers/car/car';
+import { CurrencyPipe } from '@angular/common';
 
-/**
- * Generated class for the CarSharedPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { ImageViewerController } from 'ionic-img-viewer';
 
 @IonicPage()
 @Component({
@@ -15,11 +12,51 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class CarSharedPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  public shareId: string;
+  public loading: any;
+  public carShared: any;
+
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public loadingCtrl: LoadingController,
+    public imageViewerCtrl : ImageViewerController,
+    public carService: CarProvider) {
+    this.shareId = navParams.get('shareId');
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad CarSharedPage');
+    this.getCarByShareId(this.shareId);
   }
+
+  public getCarByShareId(id: string){
+    if(!id) return;
+
+    this.showLoader();
+
+    this.carService.getCarByShareId(id).then((res:any) => {
+      if(res.success){
+        this.carShared = res.cars;
+        console.log(res.cars)
+      }
+      this.loading.dismiss();
+    }, (err) => {
+      this.loading.dismiss();
+    })
+
+  }
+
+  public presentImage(myImage) {
+    const imageViewer = this.imageViewerCtrl.create(myImage);
+    imageViewer.present();
+  }
+
+  public showLoader(){
+    this.loading = this.loadingCtrl.create({
+      content: 'getting car...'
+    });
+    this.loading.present();
+  }
+
 
 }

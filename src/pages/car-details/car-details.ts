@@ -41,6 +41,7 @@ export class CarDetailsPage {
     public keyboard: Keyboard) {
     this.carFromView = navParams.get('car');
     this.carDetails = new CarDetails(this.carFromView);
+    console.log(this.carDetails);
     this._imageViewerCtrl = imageViewerCtrl;
 
 
@@ -70,7 +71,15 @@ export class CarDetailsPage {
   }
 
   public createDeepLink(){
-    this.branchIOService.createDeepLink().then((res) => {
+    var linkProperties = {
+      shareId: this.carDetails.shareId,
+      carDescription: this.carDetails.model + " " + this.carDetails.make + " " + this.carDetails.version,
+      imageUrl: this.carDetails.pictures[0],
+      view: "CarSharedPage",
+      price: this.carDetails.price
+    }
+
+    this.branchIOService.createDeepLink(linkProperties).then((res) => {
 
     }, (err) => {
 

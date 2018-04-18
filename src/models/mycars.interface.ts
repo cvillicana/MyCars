@@ -5,6 +5,7 @@ export interface MyCars{
     model:string,
     version: boolean,
     price: string,
+    shareId: string,
     pictures:Array<string>,
     kilometer: string,
     transmission: string,
