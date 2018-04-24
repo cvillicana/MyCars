@@ -3,5 +3,10 @@ page-car-shared {
   .swiper-slide img{
     max-height: 250px !important;
   }
+
+  .car-price{
+    font-weight: bold;
+    color: color($colors, money) !important;
+  }
   
 }

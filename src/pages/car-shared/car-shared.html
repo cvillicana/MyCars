@@ -22,21 +22,54 @@
 
     </ion-row>
 
-    <ion-row>
-      <h2>{{carShared.model}}  {{carShared.make}}  {{carShared.version}}</h2>
+    <ion-row margin-top>
+      <h2 style="white-space: pre-line">{{carShared.model}}  {{carShared.make}}  {{carShared.version}}</h2>
     </ion-row>
 
-    <ion-row>
-      <h3>{{carShared.price | currency }}</h3>
+    <ion-row margin-top>
+      <h3 class="car-price">{{carShared.price | currency }}</h3>
     </ion-row>
 
-    <ion-item>
+  <ion-list no-lines>
+    <ion-item margin-top>
       <ion-avatar item-start>
         <img src="{{carShared._user.picture}}">
       </ion-avatar>
       <h2>{{carShared.ownerName}}</h2>
       <p>{{carShared.contactPhone}}</p>
     </ion-item>
+    
+    <ion-row>
+      <ion-col no-padding>
+        <ion-item *ngIf="carShared.kilometer">
+          <h2>Kilometers</h2>
+          <p>{{carShared.kilometer}}</p>
+        </ion-item>
+      </ion-col>
+      <ion-col no-padding>
+        <ion-item *ngIf="carShared.transmission">
+          <h2>Transmission</h2>
+          <p>{{carShared.transmission}}</p>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+
+
+
+    <ion-item *ngIf="carShared.gas">
+      <h2>Gas</h2>
+      <p>{{carShared.gas}}</p>
+    </ion-item>
+
+    <ion-item *ngIf="carShared.other">
+      <h2>Other</h2>
+      <p style="white-space: pre-line;">{{carShared.other}}</p>
+    </ion-item>
+
+
+
+  </ion-list>
 
   </div>
 

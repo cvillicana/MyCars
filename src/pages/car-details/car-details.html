@@ -77,8 +77,17 @@
       </ion-col>
       <ion-col no-padding>
         <ion-item>
-          <ion-label floating>Other</ion-label>
-          <ion-input [(ngModel)]="carDetails.other" type="text" debounce="1500" (onDebounce)="onChangeTime(carDetails.other, 'other')"></ion-input>
+          <ion-label floating>Color</ion-label>
+          <ion-input [(ngModel)]="carDetails.color" type="text" debounce="1500" (onDebounce)="onChangeTime(carDetails.other, 'other')"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col no-padding>
+        <ion-item>
+          <ion-label floating>Ohter</ion-label>
+          <ion-textarea [(ngModel)]="carDetails.other" autocomplete="on" autocorrect="on" type="text" debounce="1500" (onDebounce)="onChangeTime(carDetails.other, 'other')"></ion-textarea>
         </ion-item>
       </ion-col>
     </ion-row>

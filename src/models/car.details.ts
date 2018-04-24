@@ -9,6 +9,7 @@ export class CarDetails{
   version:string
   make:string
   price:string
+  color:string
   pictures:Array<string>
 
   constructor(car){
@@ -22,6 +23,7 @@ export class CarDetails{
     this.transmission = car.transmission;
     this.gas = car.gas;
     this.price = car.price;
+    this.color = car.color;
     this.other = car.other;
   }
 }

@@ -11,6 +11,7 @@ export interface MyCars{
     transmission: string,
     other: string,
     gas: string,
+    color: string,
     _user: {
       picture: string
     }
